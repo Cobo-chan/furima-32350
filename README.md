@@ -22,11 +22,11 @@ has_many :orders
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| name          | string     | null: false                    |
-| text          | text       | null: false                    |
+| name               | string     | null: false                    |
+| text               | text       | null: false                    |
 | category_id        | integer    | null: false                    |
 | condition_id       | integer    | null: false                    |
-| prefecture_id     | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | shipment_source_id | integer    | null: false                    |
 | selling_price      | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
@@ -47,19 +47,19 @@ has_one :order
 
 belongs_to :user
 belongs_to :item
-has_one :street_addresses
+has_one :street_address
 
 ## Street_addressesテーブル
 
-| Column           | Type       | Options                  |
-| ---------------- | ---------- | ------------------------ |
-| postcode         | string     | null: false              |
-| prefecture_id   | string     | null: false              |
-| municipality     | string     | null: false              |
-| address          | string     | null: false              |
-| optional_address | string     |                          |
-| phone_number     | string     | null: false              |
-| order            | references | null: false, foreign_key |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| postcode         | string     | null: false                    |
+| prefecture_id    | string     | null: false                    |
+| municipality     | string     | null: false                    |
+| address          | string     | null: false                    |
+| optional_address | string     |                                |
+| phone_number     | string     | null: false                    |
+| order            | references | null: false, foreign_key: true |
 
 ### Association
 
