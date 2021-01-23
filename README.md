@@ -22,11 +22,11 @@ has_many :orders
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| item_name          | string     | null: false                    |
-| item_text          | text       | null: false                    |
+| name          | string     | null: false                    |
+| text          | text       | null: false                    |
 | category_id        | integer    | null: false                    |
 | condition_id       | integer    | null: false                    |
-| prefectures_id     | integer    | null: false                    |
+| prefecture_id     | integer    | null: false                    |
 | shipment_source_id | integer    | null: false                    |
 | selling_price      | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
@@ -54,7 +54,7 @@ has_one :street_addresses
 | Column           | Type       | Options                  |
 | ---------------- | ---------- | ------------------------ |
 | postcode         | string     | null: false              |
-| prefectures_id   | string     | null: false              |
+| prefecture_id   | string     | null: false              |
 | municipality     | string     | null: false              |
 | address          | string     | null: false              |
 | optional_address | string     |                          |
