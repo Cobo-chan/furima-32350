@@ -7,8 +7,8 @@ class Item < ApplicationRecord
   with_options numericality: { other_than: 1 } do
     validates :category_id, :condition_id, :shipment_charge_id, :prefecture_id, :derivery_date_id
   end
-  validates :selling_price, numericality: { only_integer: true }, { :greater_than: 300 }, { :less_than 9_999_999 }
-  
+  validates :selling_price, numericality: { only_integer: true, greater_than: 300, less_than: 9_999_999 }
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :condition
