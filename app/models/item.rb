@@ -1,8 +1,8 @@
 class Item < ApplicationRecord
   has_one_attached :image
 
-  with_options presence: true do
-    validates :name, :text, :category_id, :condition_id, :shipment_charge_id, :prefecture_id, :derivery_date_id, :selling_price
+  with_options presence: true do |v|
+    v.validates :name, :text, :category_id, :condition_id, :shipment_charge_id, :prefecture_id, :derivery_date_id, :selling_price
   end
   with_options numericality: { other_than: 1 } do
     validates :category_id, :condition_id, :shipment_charge_id, :prefecture_id, :derivery_date_id
@@ -14,6 +14,5 @@ class Item < ApplicationRecord
   belongs_to :condition
   belongs_to :derivery_date
   belongs_to :prefecture
-  belongs_to :selling_price
   belongs_to :shipment_charge
 end
