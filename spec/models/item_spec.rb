@@ -59,7 +59,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Selling price can't be blank")
       end
       it '販売価格が300円以下だと出品できない' do
-        @item.selling_price = 200
+        @item.selling_price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Selling price must be greater than 300")
       end
@@ -69,8 +69,17 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Selling price must be less than 9999999")
       end
       it '販売価格が全角入力だと出品できない' do
-        #全角入力は文字列として返されるため文字列を代入してテストを実行した
         @item.selling_price = '３００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Selling price is not a number")
+      end
+      it '販売価格が半角英数の混合だと出品できない' do
+        @item.selling_price = '4ttt'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Selling price is not a number")
+      end
+      it '販売価格が半角英字だけだと出品できない' do
+        @item.selling_price = 'hoge'
         @item.valid?
         expect(@item.errors.full_messages).to include("Selling price is not a number")
       end
