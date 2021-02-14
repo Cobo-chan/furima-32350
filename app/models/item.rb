@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  #orderモデルとのアソシエーション設定時に削除した際の関係性を記述する事
+  has_one :order, dependent: :destroy
 
   with_options presence: true do
     validates :image, :name, :text, :category_id, :condition_id, :shipment_charge_id, :prefecture_id, :derivery_date_id, :selling_price

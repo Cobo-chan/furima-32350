@@ -1,7 +1,10 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :find_item_instance
+  before_action :move_to_index_seller
+  before_action :selled_item_access
 
   def index
-    @item = Item.find(params[:item_id])
     @register_information = RegisterInformation.new
   end
 
@@ -18,6 +21,10 @@ class OrdersController < ApplicationController
   end
 
   private
+  def find_item_instance
+    @item = Item.find(params[:item_id])
+  end
+
   def order_params
     params.require(:register_information).permit(
       :postcode,
@@ -32,12 +39,23 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    item = Item.find(params[:item_id])
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
-      amount: item.selling_price,
+      amount: @item.selling_price,
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def move_to_index_seller
+    if current_user.id == @item.user_id
+      redirect_to root_path
+    end
+  end
+
+  def selled_item_access
+    if @item.order
+      redirect_to root_path
+    end
   end
 end
