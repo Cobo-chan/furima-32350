@@ -2,7 +2,7 @@ class RegisterInformation
   include ActiveModel::Model
   attr_accessor :postcode, :municipality, :prefecture_id, :address, :optional_address, :phone_number, :token, :user_id, :item_id
   with_options presence: true do
-    validates :postcode, :municipality, :address, :phone_number, :token
+    validates :postcode, :municipality, :address, :phone_number, :token, :user_id, :item_id
   end
   validates :postcode, format: { with: /\A\d{3}[-]\d{4}\z/, message: "Input currectly"}
   validates :prefecture_id, numericality: { other_than: 1, message: "Select" }
