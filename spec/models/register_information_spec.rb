@@ -60,7 +60,7 @@ RSpec.describe RegisterInformation, type: :model do
     it 'phone_numberが半角英数字混合だと保存できない' do
       @register_information.phone_number = '0901234aaaa'
       @register_information.valid?
-      expect(@register_information).to include("Phone number is not a number")
+      expect(@register_information.errors.full_messages).to include("Phone number is not a number")
     end
     it 'phone_numberが12桁以上の数字だと保存できない' do
       @register_information.phone_number = '090123456789'
