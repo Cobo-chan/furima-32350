@@ -7,7 +7,5 @@ FactoryBot.define do
     optional_address    { '函館ハイツ' }
     phone_number        { '09012345678' }
     token               { 'tok_abcdefghijk00000000000000000' }
-    user_id             { 4 }
-    item_id             { 4 }
   end
 end
