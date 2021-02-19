@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_item_instance
-  before_action :move_to_index_seller
-  before_action :selled_item_access
+  before_action :move_to_index
 
   def index
     @register_information = RegisterInformation.new
@@ -46,15 +45,8 @@ class OrdersController < ApplicationController
     )
   end
 
-  def move_to_index_seller
-    if current_user.id == @item.user_id
+  def move_to_index
+    if current_user.id == @item.user_id || @item.order
       redirect_to root_path
     end
   end
-
-  def selled_item_access
-    if @item.order
-      redirect_to root_path
-    end
-  end
-end
