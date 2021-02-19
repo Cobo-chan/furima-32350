@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe RegisterInformation, type: :model do
   describe '商品購入情報と宛先の保存' do
     before do
-      @register_information = FactoryBot.build(:register_information)
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @register_information = FactoryBot.build(:register_information, user_id: @user.id, item_id: @item.id)
+      sleep(1)
     end
 
     it '必須条件が正しく入力されていれば保存できる' do
@@ -49,15 +52,20 @@ RSpec.describe RegisterInformation, type: :model do
       @register_information.valid?
       expect(@register_information.errors.full_messages).to include("Phone number can't be blank")
     end
-    it 'phone_nuberが半角数字でなければ保存できない' do
+    it 'phone_numberが半角数字でなければ保存できない' do
       @register_information.phone_number = '０９０１２３４５６７８'
       @register_information.valid?
       expect(@register_information.errors.full_messages).to include("Phone number is not a number")
     end
-    it 'phone_numberが11桁の数字でないと保存できない' do
-      @register_information.phone_number = '0123456789'
+    it 'phone_numberが半角英数字混合だと保存できない' do
+      @register_information.phone_number = '0901234aaaa'
       @register_information.valid?
-      expect(@register_information.errors.full_messages).to include("Phone number Input 11characters")
+      expect(@register_information).to include("Phone number is not a number")
+    end
+    it 'phone_numberが12桁以上の数字だと保存できない' do
+      @register_information.phone_number = '090123456789'
+      @register_information.valid?
+      expect(@register_information.errors.full_messages).to include("Phone number Input 10 or 11 characters")
     end
     it 'user_idがなければ保存できない' do
       @register_information.user_id = ''
